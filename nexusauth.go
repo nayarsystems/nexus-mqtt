@@ -5,7 +5,7 @@ import (
 
 	"github.com/nayarsystems/nxgo"
 	"github.com/nayarsystems/nxgo/nxcore"
-	"github.com/surgemq/surgemq/auth"
+	"github.com/nayarsystems/surgemq/auth"
 )
 
 type NexusAuthenticator struct {
@@ -24,7 +24,7 @@ func (nx NexusAuthenticator) Authenticate(user string, p interface{}) (err error
 		return errors.New("password must be a string")
 	}
 
-	nx.NexusConn, err = nxgo.Dial("tcp://localhost:1717", nil)
+	nx.NexusConn, err = nxgo.Dial(nexusServer, nil)
 	if err != nil {
 		return err
 	}

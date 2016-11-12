@@ -21,8 +21,8 @@ import (
 	"os/signal"
 	"runtime/pprof"
 
+	"github.com/nayarsystems/surgemq/service"
 	"github.com/surge/glog"
-	"github.com/surgemq/surgemq/service"
 )
 
 var (
@@ -38,6 +38,7 @@ var (
 	wssAddr          string // HTTPS websocket address, eg. :8081
 	wssCertPath      string // path to HTTPS public key
 	wssKeyPath       string // path to HTTPS private key
+	nexusServer	 string
 
 	svr *service.Server
 )
@@ -49,12 +50,13 @@ func init() {
 	flag.IntVar(&timeoutRetries, "retries", service.DefaultTimeoutRetries, "Timeout Retries")
 	flag.StringVar(&authenticator, "auth", "nexus", "Authenticator Type")
 	flag.StringVar(&sessionsProvider, "sessions", service.DefaultSessionsProvider, "Session Provider Type")
-	flag.StringVar(&topicsProvider, "topics", service.DefaultTopicsProvider, "Topics Provider Type")
+	flag.StringVar(&topicsProvider, "topics", "nexus", "Topics Provider Type")
 	flag.StringVar(&cpuprofile, "cpuprofile", "", "CPU Profile Filename")
 	flag.StringVar(&wsAddr, "wsaddr", "", "HTTP websocket address, eg. ':8080'")
 	flag.StringVar(&wssAddr, "wssaddr", "", "HTTPS websocket address, eg. ':8081'")
 	flag.StringVar(&wssCertPath, "wsscertpath", "", "HTTPS server public key file")
 	flag.StringVar(&wssKeyPath, "wsskeypath", "", "HTTPS server private key file")
+	flag.StringVar(&nexusServer, "nexusserver", "tcp://localhost:1717", "Nexus connection server")
 	flag.Parse()
 }
 
