@@ -38,7 +38,7 @@ var (
 	wssAddr          string // HTTPS websocket address, eg. :8081
 	wssCertPath      string // path to HTTPS public key
 	wssKeyPath       string // path to HTTPS private key
-	nexusServer	 string
+	nexusServer      string
 
 	svr *service.Server
 )
@@ -48,7 +48,7 @@ func init() {
 	flag.IntVar(&connectTimeout, "connecttimeout", service.DefaultConnectTimeout, "Connect Timeout (sec)")
 	flag.IntVar(&ackTimeout, "acktimeout", service.DefaultAckTimeout, "Ack Timeout (sec)")
 	flag.IntVar(&timeoutRetries, "retries", service.DefaultTimeoutRetries, "Timeout Retries")
-	flag.StringVar(&authenticator, "auth", "nexus", "Authenticator Type")
+	flag.StringVar(&authenticator, "auth", service.DefaultAuthenticator, "Authenticator Type")
 	flag.StringVar(&sessionsProvider, "sessions", service.DefaultSessionsProvider, "Session Provider Type")
 	flag.StringVar(&topicsProvider, "topics", "nexus", "Topics Provider Type")
 	flag.StringVar(&cpuprofile, "cpuprofile", "", "CPU Profile Filename")
@@ -69,6 +69,7 @@ func main() {
 		SessionsProvider: sessionsProvider,
 		TopicsProvider:   topicsProvider,
 		Authenticator:    authenticator,
+		NexusServer:      nexusServer,
 	}
 
 	var f *os.File
